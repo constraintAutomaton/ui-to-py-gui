@@ -115,7 +115,6 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
         with open('{}\{}.py'.format(self.pathPy, self.py), 'r') as f:
             for line in f:
                 if line.startswith('class'):
-                    # extension = re.search("class (.*):", line)
                     extension = line
 
                     extension = extension.replace('(object):', '')
