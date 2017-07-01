@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>538</width>
+    <height>433</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ui to Py</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetNoConstraint</enum>
+    </property>
+    <item row="7" column="0" colspan="3">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="ChkSame">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Ui et Py même nom</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="ChkSons">
+        <property name="text">
+         <string>Sons ON/OFF</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="ChkSameFolder">
+        <property name="layoutDirection">
+         <enum>Qt::RightToLeft</enum>
+        </property>
+        <property name="text">
+         <string>Ui et Py même emplacement</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="LePy">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="LblUi">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>Fichier Ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="LeUi"/>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="LePathPy">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="LblPathUi">
+      <property name="text">
+       <string>Emplacement fichier Ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="11" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QPushButton" name="BtnQt">
+        <property name="text">
+         <string>Ouvrir Designer</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="BtnPathQt">
+        <property name="text">
+         <string>Configurer l'emplacement de Qt Designer</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="12" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetNoConstraint</enum>
+      </property>
+      <item>
+       <widget class="QLabel" name="LblInfo">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="text">
+         <string>Les emplacements ne doivent pas contenir d'espace exemple:
+	C:/Users/HP/Google_Drive OUI
+	C:/Users/HP/Google Drive NON
+
+*Les '/ ' doivent être dans l'autre sens.Le plus simple est de seulement
+ copier-coller l'emplacement de la barre d'état.
+
+Les scripts python sont crées dans le même emplacement que 
+les fichiers .py sortant</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="1">
+     <widget class="QLineEdit" name="LeScript"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="LblPathPy">
+      <property name="text">
+       <string>Emplacement du fichier Py</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="LbPy">
+      <property name="text">
+       <string>Fichier Py</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="LePathUi">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="LblFichierPython">
+      <property name="text">
+       <string>Nom du script</string>
+      </property>
+     </widget>
+    </item>
+    <item row="9" column="0" colspan="3">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinimumSize</enum>
+      </property>
+      <item>
+       <widget class="QPushButton" name="BtnCode">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string>Créer un script python</string>
+        </property>
+        <property name="autoDefault">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="BtnGo">
+        <property name="text">
+         <string>Convertir .ui en .py</string>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="10" column="0">
+     <widget class="QRadioButton" name="RbCreer">
+      <property name="text">
+       <string>Créer un script</string>
+      </property>
+     </widget>
+    </item>
+    <item row="10" column="1">
+     <widget class="QRadioButton" name="RbAjout">
+      <property name="layoutDirection">
+       <enum>Qt::RightToLeft</enum>
+      </property>
+      <property name="text">
+       <string>Ajouter widget dans un script</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
