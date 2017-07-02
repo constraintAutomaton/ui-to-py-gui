@@ -17,8 +17,8 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
         self.scriptName = ''
 
 
-        self.audioLose = QSound(r"C:\Users\HP\Google_Drive\Personnel\Python\Projet\Qt_convert\audio\GameOver.wav")
-        self.audioWin = QSound(r"C:\Users\HP\Google_Drive\Personnel\Python\Projet\Qt_convert\audio\Victory_ff7-_AudioTrimmer_com_.wav")
+        self.audioLose = QSound(r"audio\GameOver.wav")
+        self.audioWin = QSound(r"Victory_ff7-_AudioTrimmer_com_.wav")
 
         self.BtnGo.clicked.connect(self.convertirPy)
         self.BtnCode.clicked.connect(self.convertirScript)
@@ -190,10 +190,10 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
             f.write(path)
 
 def main():
-    app = QtGui.QApplication(sys.argv)  # A new instance of QApplication
-    form = Convertisseur()  # We set the form to be our ExampleApp (design)
-    form.show()  # Show the form
-    sys.exit(app.exec_())  # and execute the app
+    app = QtGui.QApplication(sys.argv)
+    form = Convertisseur()
+    form.show()
+    sys.exit(app.exec_())
 
-if __name__ == '__main__':  # if we're running file directly and not importing it
-    main()  # run the main function
+if __name__ == '__main__':
+    main()
