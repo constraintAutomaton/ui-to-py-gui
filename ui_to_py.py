@@ -1,3 +1,4 @@
+
 import sys
 import os
 from Convertisseur import Ui_MainWindow
@@ -118,7 +119,7 @@ class Convertisseur(Ui_MainWindow):
             extension,self.py)
         self.coeur = "class {}({}):\n    def __init__(self, w):\n        self.setupUi(w)\n\n".format(
             self.py, nameClass)
-        print(self.importation,self.coeur, self.presentation)
+        
 
     def convertirScript(self):
         self.appelConvertion()

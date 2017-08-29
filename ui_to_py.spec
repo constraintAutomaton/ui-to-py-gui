@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['ui_to_py.py'],
-             pathex=['C:\\Users\\HP\\Google_Drive\\Personnel\\Python\\Projet\\Qt_convert'],
+             pathex=['C:\\Users\\Utilisateur\\Documents\\Python Scripts\\ui-to-py-gui'],
              binaries=[],
              datas=[],
              hiddenimports=[],
