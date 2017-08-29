@@ -1,19 +1,18 @@
-import os
-import Convertisseur
 import sys
-from PyQt4 import QtCore, QtGui
-from PyQt4.QtGui import QSound
+import os
+from Convertisseur import Ui_MainWindow
+import sys
+from PyQt5 import QtCore, QtGui , QtWidgets
+from PyQt5.QtMultimedia import QSound
 
 
-class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
-    def __init__(self):
-        super(self.__class__, self).__init__()
-        self.setupUi(self)
-
+class Convertisseur(Ui_MainWindow):
+    def __init__(self, w):
+        self.setupUi(w)
+        
         self.ui = ''
         self.py = ''
         self.pathUi = ''
-        self.pathPy = ''
         self.scriptName = ''
 
 
@@ -26,17 +25,17 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
         self.BtnPathQt.clicked.connect(self.modifierEmplacementQt)
 
         self.ChkSame.stateChanged.connect(lambda :self.changementInfoConvertion(self.ChkSame.text()))
-        self.ChkSameFolder.stateChanged.connect(lambda :self.changementInfoConvertion(self.ChkSameFolder.text()))
+        
 
-        self.setTabOrder(self.LeUi,self.LePathUi)
-        self.setTabOrder(self.LePathUi,self.LeScript)
-        self.setTabOrder(self.LeScript,self.BtnGo)
-        self.setTabOrder(self.BtnGo,self.BtnCode)
-        self.setTabOrder(self.BtnCode,self.BtnQt)
+        #self.setTabOrder(self.LeUi,self.LePathUi)
+        #self.setTabOrder(self.LePathUi,self.LeScript)
+        #self.setTabOrder(self.LeScript,self.BtnGo)
+        #self.setTabOrder(self.BtnGo,self.BtnCode)
+        #self.setTabOrder(self.BtnCode,self.BtnQt)
 
     def convertirPy(self):
         #Fait la convertion de ui a py dépendement des input fornie
-        #pyuic4 -o MonAppli.py -x MonAppli.ui
+        #pyuic5 -o MonAppli.py -x MonAppli.ui
         # ajouter un label de statue
         boul = True
         while boul == True:
@@ -45,31 +44,25 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
                 self.ui = self.LeUi.text()
                 self.pathUi = self.LePathUi.text()
 
-                if self.ChkSameFolder.isChecked() and self.ChkSame.isChecked():
+               
+                if  self.ChkSame.isChecked():
 
                     self.py = self.ui
-                    self.pathPy = self.pathUi
-
-
-                elif self.ChkSameFolder.isChecked() == False and self.ChkSame.isChecked():
-
-                    self.py = self.ui
-                    self.pathPy = self.LePathPy.text()
-                elif self.ChkSameFolder.isChecked() and self.ChkSame.isChecked() == False:
-                    self.py = self.LePy.text()
-                    self.pathPy = self.pathUi
                 else:
-
                     self.py = self.LePy.text()
-                    self.pathPy = self.LePathPy.text()
+                    
+                    
 
-                if self.ui == '' or self.py == '' or self.pathPy =='' or self.pathUi == '':
+                if self.ui == '' or self.py == '' or self.pathUi == '':
                     raise ValueError("Vous devez remplir tous les champs")
+                    
                     self.LblInfo.setText("Vous devez remplir tous les champs")
+                    
                     if self.ChkSons.isChecked() :
                         self.audioLose.play()
-
-                os.system('pyuic4 -o {}\{}.py -x {}\{}.ui'.format(self.pathPy, self.py, self.pathUi, self.ui))
+                os.chdir(self.pathUi)
+                os.system('pyuic5 -x {}.ui -o {}.py '.format(self.ui, self.py))
+                    
 
             except:
                 print("Le fichier ou l'emplacement est introuvable")
@@ -88,15 +81,9 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
 
     def changementInfoConvertion(self, nom):
         #Permet de controler les input de l'utilisateur par rapport au info relatif au convertissement
-        if nom == 'Ui et Py même emplacement' and self.ChkSameFolder.isChecked() == False:
+        
 
-            self.LePathPy.setEnabled(True)
-
-        elif nom == 'Ui et Py même emplacement' and self.ChkSameFolder.isChecked():
-
-            self.LePathPy.setEnabled(False)
-
-        elif nom == 'Ui et Py même nom' and self.ChkSame.isChecked():
+        if nom == 'Ui et Py même nom' and self.ChkSame.isChecked():
 
             self.LePy.setEnabled(False)
 
@@ -112,23 +99,26 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
         # permet d'obtenir le type de widget (mainWindow, Ui form )
         extension = ''
 
-        with open('{}\{}.py'.format(self.pathPy, self.py), 'r') as f:
+        with open('{}\{}.py'.format(self.pathUi,self.py), 'r') as f:
             for line in f:
-                if line.startswith('class'):
-                    extension = line
-
-                    extension = extension.replace('(object):', '')
-                    extension = extension.replace('class ', '')
-                    extension = extension.replace('\n', '')
+                if 'class' in line:
+                    start = ' '
+                    end = '('
+                    nameClass = line[line.find(start)+len(start):line.rfind(end)]
+                if 'MainWindow = QtWidgets.' in line:
+                    extension = line[line.index('.')+1:]
+                    break
+                
 
 
         # Partie de la structure
-        self.importation = "from PyQt4 import QtGui\nimport sys\nimport os\nfrom PyQt4.QtGui import QSound\nimport {}\n\n".format(
-            self.py)
-        self.presentation = "def main():\n    app = QtGui.QApplication(sys.argv)\n    form = {}()\n    form.show()\n    sys.exit(app.exec_())\n\nif __name__ == '__main__':\n    main() ".format(
-            self.py)
-        self.coeur = "class {}(QtGui.QMainWindow, {}.{}):\n    def __init__(self):\n        super(self.__class__, self).__init__()\n        self.setupUi(self)\n\n".format(
-            self.py, self.py, extension)
+        self.importation = "from PyQt5 import QtGui, QtCore, QtWidgets\nimport sys\nimport os\nfrom PyQt5.QtMultimedia import QSound\nfrom {} import {}\n\n".format(
+            self.py,nameClass)
+        self.presentation = "def main():\n    app = QtWidgets.QApplication(sys.argv)\n    w = QtWidgets.{}    prog = {}(w)\n    w.show()\n    sys.exit(app.exec_())\n\nif __name__ == '__main__':\n    main() ".format(
+            extension,self.py)
+        self.coeur = "class {}({}):\n    def __init__(self, w):\n        self.setupUi(w)\n\n".format(
+            self.py, nameClass)
+        print(self.importation,self.coeur, self.presentation)
 
     def convertirScript(self):
         self.appelConvertion()
@@ -136,7 +126,7 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
             self.ajoutScript()
         else:
 
-            with open('{}\{}.py'.format(self.pathPy,self.scriptName),'w') as script:
+            with open('{}\{}.py'.format(self.pathUi,self.scriptName),'w') as script:
                 script.write(self.importation)
                 script.write(self.coeur)
                 script.write(self.presentation)
@@ -156,7 +146,7 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
         del coeur[-1]
         del coeur[-1]
 
-        with open(r'{}\{}.py'.format(self.pathPy, self.scriptName), 'r+') as script:
+        with open(r'{}\{}.py'.format(self.pathUi, self.scriptName), 'r+') as script:
 
             contenus = script.readlines()
 
@@ -190,9 +180,10 @@ class Convertisseur(QtGui.QMainWindow, Convertisseur.Ui_MainWindow):
             f.write(path)
 
 def main():
-    app = QtGui.QApplication(sys.argv)
-    form = Convertisseur()
-    form.show()
+    app = QtWidgets.QApplication(sys.argv)
+    w = QtWidgets.QMainWindow()
+    prog = Convertisseur(w)
+    w.show()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
