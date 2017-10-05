@@ -59,7 +59,7 @@ class Convertisseur(Ui_MainWindow):
                     self.py, ok =  QtWidgets.QInputDialog.getText(QtWidgets.QMainWindow(),"Nom du fichier py","Entrez le nom")
                 else:
                     self.py = self.ui        
-                print(self.ui,self.py,self.pathUi)
+                
                 if self.ui == '' or self.py == '' or self.pathUi == '':
                     raise ValueError("Vous devez remplir tous les champs")
                     
