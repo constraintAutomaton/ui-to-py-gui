@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['ui_to_py.py'],
-             pathex=['C:\\Users\\Utilisateur\\Documents\\Python Scripts\\ui-to-py-gui'],
+             pathex=['C:\\Users\\Utilisateur\\Documents\\Python_Scripts\\ui-to-py-gui'],
              binaries=[],
              datas=[],
              hiddenimports=[],

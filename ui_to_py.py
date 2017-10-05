@@ -9,11 +9,13 @@ from PyQt5.QtMultimedia import QSound
 
 class Convertisseur(Ui_MainWindow):
     def __init__(self, w):
+        super().__init__()
         self.setupUi(w)
         
         self.ui = ''
         self.py = ''
         self.pathUi = ''
+        self.pathPy = ''
         self.scriptName = ''
 
 
@@ -25,7 +27,6 @@ class Convertisseur(Ui_MainWindow):
         self.BtnQt.clicked.connect(self.ouvrirQt)
         self.BtnPathQt.clicked.connect(self.modifierEmplacementQt)
 
-        self.ChkSame.stateChanged.connect(lambda :self.changementInfoConvertion(self.ChkSame.text()))
         
 
         #self.setTabOrder(self.LeUi,self.LePathUi)
@@ -38,22 +39,27 @@ class Convertisseur(Ui_MainWindow):
         #Fait la convertion de ui a py dépendement des input fornie
         #pyuic5 -o MonAppli.py -x MonAppli.ui
         # ajouter un label de statue
+        with open('pathFileBrowser.txt','r') as f: # fichier qui permet d'ouvrir au dernier path utilise
+            path = f.read()        
         boul = True
         while boul == True:
+           
             try:
+                uiFile = QtWidgets.QFileDialog.getOpenFileName(directory=path,filter = "ui Files (*.ui);;All Files (*);;")
+                self.ui = uiFile[0][uiFile[0].rfind('/')+1:].replace('.ui','')
 
-                self.ui = self.LeUi.text()
-                self.pathUi = self.LePathUi.text()
+                self.pathUi = uiFile[0][:uiFile[0].rfind('/')+1] 
+                
+                
+                with open('pathFileBrowser.txt', 'w') as f: # fichier qui permet d'ouvrir au dernier path utilise
+                    f.write(self.pathUi)                 
 
-               
-                if  self.ChkSame.isChecked():
+                if  self.ChkSame.isChecked() == False:
 
-                    self.py = self.ui
+                    self.py, ok =  QtWidgets.QInputDialog.getText(QtWidgets.QMainWindow(),"Nom du fichier py","Entrez le nom")
                 else:
-                    self.py = self.LePy.text()
-                    
-                    
-
+                    self.py = self.ui        
+                print(self.ui,self.py,self.pathUi)
                 if self.ui == '' or self.py == '' or self.pathUi == '':
                     raise ValueError("Vous devez remplir tous les champs")
                     
@@ -63,7 +69,8 @@ class Convertisseur(Ui_MainWindow):
                         self.audioLose.play()
                 os.chdir(self.pathUi)
                 os.system('pyuic5 -x {}.ui -o {}.py '.format(self.ui, self.py))
-                    
+                
+                
 
             except:
                 print("Le fichier ou l'emplacement est introuvable")
@@ -80,21 +87,9 @@ class Convertisseur(Ui_MainWindow):
         elif boul == False:
             self.LblInfo.setText('Convertion de {}.ui en {}.py réussit '.format(self.ui, self.py))
 
-    def changementInfoConvertion(self, nom):
-        #Permet de controler les input de l'utilisateur par rapport au info relatif au convertissement
-        
-
-        if nom == 'Ui et Py même nom' and self.ChkSame.isChecked():
-
-            self.LePy.setEnabled(False)
-
-        else :
-
-            self.LePy.setEnabled(True)
-
+   
     def appelConvertion(self):
         # Crée une base pour la création de Gui à partir du fichier ui initial
-        self.scriptName = self.LeScript.text()
         self.convertirPy()
 
         # permet d'obtenir le type de widget (mainWindow, Ui form )
@@ -122,11 +117,15 @@ class Convertisseur(Ui_MainWindow):
         
 
     def convertirScript(self):
+        
         self.appelConvertion()
+        
         if self.RbAjout.isChecked():
             self.ajoutScript()
         else:
-
+            
+            self.scriptName, ok = QtWidgets.QInputDialog.getText(QtWidgets.QMainWindow(),"Nom du script","Entrez le nom")
+            
             with open('{}\{}.py'.format(self.pathUi,self.scriptName),'w') as script:
                 script.write(self.importation)
                 script.write(self.coeur)
@@ -137,7 +136,15 @@ class Convertisseur(Ui_MainWindow):
             self.LblInfo.setText('Script {}.py créer'.format(self.scriptName))
 
     def ajoutScript(self):
-        self.appelConvertion()
+        with open('pathFileBrowser.txt','r') as f: # fichier qui permet d'ouvrir au dernier path utilise
+            path = f.read() 
+            
+        scriptName = QtWidgets.QFileDialog.getOpenFileName(directory=path,filter = "ui Files (*.py);;All Files (*);;")
+        self.scriptName = scriptName[0][scriptName[0].rfind('/')+1:].replace('.py','')  
+        
+        with open('pathFileBrowser.txt', 'w') as f: # fichier qui permet d'ouvrir au dernier path utilise
+            f.write(self.pathUi)
+            
         # Permet de transformer self.coeur en list tout en gardant les \n
 
         coeur = self.coeur.split('\n')
@@ -174,9 +181,8 @@ class Convertisseur(Ui_MainWindow):
         self.LblInfo.setText('Ouverture de Qt Designer ')
 
     def modifierEmplacementQt(self):
-        path, ok = QtGui.QInputDialog.getText(self, 'Modifier l\'emplacement de Qt Designer',
-                                              'Entrer le nouvel emplacement')
-        print('to')
+        path, ok =  QtWidgets.QInputDialog.getText(QtWidgets.QMainWindow(),"Modifier l\'emplacement de Qt Designer","Entrer le nouvel emplacement")
+        
         with open('pathQt.txt', 'w') as f:
             f.write(path)
 

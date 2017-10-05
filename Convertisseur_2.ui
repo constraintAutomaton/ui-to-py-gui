@@ -108,6 +108,13 @@ les fichiers .py sortant</string>
        </widget>
       </item>
       <item>
+       <widget class="QCheckBox" name="chkSamePath">
+        <property name="text">
+         <string>Ui et Py même emplacement</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QCheckBox" name="ChkSame">
         <property name="enabled">
          <bool>true</bool>
