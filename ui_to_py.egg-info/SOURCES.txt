@@ -1,0 +1,18 @@
+MANIFEST.in
+README.md
+README_FR.md
+setup.py
+ui-to-py/Convertisseur.py
+ui-to-py/__init__.py
+ui-to-py/pathFileBrowser.txt
+ui-to-py/pathQt.txt
+ui-to-py/ui_to_py.py
+ui-to-py/audio/GameOver.wav
+ui-to-py/audio/Metal Gear Solid PS1 Game Over Theme (Clean Version).mp3
+ui-to-py/audio/Victory_ff7-[AudioTrimmer.com].mp3
+ui-to-py/audio/Victory_ff7-_AudioTrimmer_com_.wav
+ui-to-py/audio/Victory_ff7.mp3
+ui_to_py.egg-info/PKG-INFO
+ui_to_py.egg-info/SOURCES.txt
+ui_to_py.egg-info/dependency_links.txt
+ui_to_py.egg-info/top_level.txt
