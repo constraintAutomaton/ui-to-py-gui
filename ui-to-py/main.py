@@ -26,12 +26,6 @@ class Convertisseur(Ui_MainWindow):
         self.BtnQt.clicked.connect(self.ouvrirQt)
         self.BtnPathQt.clicked.connect(self.modifierEmplacementQt)
 
-        # self.setTabOrder(self.LeUi,self.LePathUi)
-        # self.setTabOrder(self.LePathUi,self.LeScript)
-        # self.setTabOrder(self.LeScript,self.BtnGo)
-        # self.setTabOrder(self.BtnGo,self.BtnCode)
-        # self.setTabOrder(self.BtnCode,self.BtnQt)
-
     def convertirPy(self):
         # Fait la convertion de ui a py dépendement des input fornie
         # pyuic5 -o MonAppli.py -x MonAppli.ui
