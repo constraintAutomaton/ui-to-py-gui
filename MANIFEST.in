@@ -1,5 +1,0 @@
-include *.mp3
-include *.wav
-include *.txt
-include *.md
-recursive-include ui-to-py *.txt *.py *.mp3 *.wav .*md
