@@ -2,7 +2,6 @@
 import sys
 import os
 from Convertisseur import Ui_MainWindow
-import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtMultimedia import QSound
 
@@ -20,6 +19,7 @@ class Convertisseur(Ui_MainWindow):
 
         self.audioLose = QSound(r"audio\GameOver.wav")
         self.audioWin = QSound(r"Victory_ff7-_AudioTrimmer_com_.wav")
+        self.workingDir = os.getcwd()
 
         self.BtnGo.clicked.connect(self.convertirPy)
         self.BtnCode.clicked.connect(self.convertirScript)
@@ -31,7 +31,8 @@ class Convertisseur(Ui_MainWindow):
         # pyuic5 -o MonAppli.py -x MonAppli.ui
         # ajouter un label de statue
         # fichier qui permet d'ouvrir au dernier path utilise
-        with open('pathFileBrowser.txt', 'r') as f:
+        os.chdir(self.workingDir)
+        with open(r'pathFileBrowser.txt', 'r') as f:
             path = f.read()
         boul = True
         while boul == True:
