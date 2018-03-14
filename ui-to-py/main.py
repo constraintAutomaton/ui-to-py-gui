@@ -175,7 +175,7 @@ class Convertisseur(Ui_MainWindow):
     def ouvrirQt(self):
         with open('pathQt.txt', 'r') as f:
             path = f.read()
-        os.system('start {}'.format(path))
+        os.system('{}'.format(path))
         self.LblInfo.setText('Ouverture de Qt Designer ')
 
     def modifierEmplacementQt(self):
