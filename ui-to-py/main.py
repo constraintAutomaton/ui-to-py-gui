@@ -1,4 +1,3 @@
-
 import sys
 import os
 from Convertisseur import Ui_MainWindow
@@ -89,7 +88,7 @@ class Convertisseur(Ui_MainWindow):
         # permet d'obtenir le type de widget (mainWindow, Ui form )
         extension = ''
 
-        with open('{}\{}.py'.format(self.pathUi, self.py), 'r') as f:
+        with open(os.path.join(self.pathUi,self.py+'.py'),'r') as f:
             for line in f:
                 if 'class' in line:
                     start = ' '
@@ -97,6 +96,12 @@ class Convertisseur(Ui_MainWindow):
                     nameClass = line[line.find(
                         start) + len(start):line.rfind(end)]
                 if 'MainWindow = QtWidgets.' in line:
+                    extension = line[line.index('.') + 1:]
+                    break
+                elif 'Dialog = QtWidgets.' in line:
+                    extension = line[line.index('.') + 1:]
+                    break
+                elif 'Form = QtWidgets.' in line:
                     extension = line[line.index('.') + 1:]
                     break
 
@@ -111,7 +116,7 @@ class Convertisseur(Ui_MainWindow):
     def convertirScript(self):
 
         self.appelConvertion()
-
+        
         if self.RbAjout.isChecked():
             self.ajoutScript()
         else:
@@ -119,7 +124,7 @@ class Convertisseur(Ui_MainWindow):
             self.scriptName, ok = QtWidgets.QInputDialog.getText(
                 QtWidgets.QMainWindow(), "Nom du script", "Entrez le nom")
 
-            with open('{}\{}.py'.format(self.pathUi, self.scriptName), 'w') as script:
+            with open(os.path.join(self.pathUi,self.scriptName+'.py'), 'w') as script:
                 script.write(self.importation)
                 script.write(self.coeur)
                 script.write(self.presentation)
@@ -151,7 +156,7 @@ class Convertisseur(Ui_MainWindow):
         del coeur[-1]
         del coeur[-1]
 
-        with open(r'{}\{}.py'.format(self.pathUi, self.scriptName), 'r+') as script:
+        with open(os.path.join(self.pathUi,self.scriptName), 'r+') as script:
 
             contenus = script.readlines()
 
