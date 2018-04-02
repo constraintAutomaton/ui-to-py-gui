@@ -1,3 +1,4 @@
+# coding: utf-8
 import sys
 import os
 from Convertisseur import Ui_MainWindow
@@ -26,7 +27,7 @@ class Convertisseur(Ui_MainWindow):
         self.BtnPathQt.clicked.connect(self.modifierEmplacementQt)
 
     def convertirPy(self):
-        # Fait la convertion de ui a py dépendement des input fornie
+        # Fait la convertion de ui a py dÃ©pendement des input fornie
         # pyuic5 -o MonAppli.py -x MonAppli.ui
         # ajouter un label de statue
         # fichier qui permet d'ouvrir au dernier path utilise
@@ -79,10 +80,10 @@ class Convertisseur(Ui_MainWindow):
             self.audioWin.play()
         elif boul == False:
             self.LblInfo.setText(
-                'Convertion de {}.ui en {}.py réussit '.format(self.ui, self.py))
+                'Conversion de {}.ui en {}.py réussie '.format(self.ui, self.py))
 
     def appelConvertion(self):
-        # Crée une base pour la création de Gui à partir du fichier ui initial
+        # CrÃ©e une base pour la crÃ©ation de Gui Ã  partir du fichier ui initial
         self.convertirPy()
 
         # permet d'obtenir le type de widget (mainWindow, Ui form )
@@ -131,7 +132,7 @@ class Convertisseur(Ui_MainWindow):
 
                 if self.ChkSons.isChecked():
                     self.audioWin.play()
-            self.LblInfo.setText('Script {}.py créer'.format(self.scriptName))
+            self.LblInfo.setText('Script {}.py créé'.format(self.scriptName))
 
     def ajoutScript(self):
         # fichier qui permet d'ouvrir au dernier path utilise
@@ -152,7 +153,7 @@ class Convertisseur(Ui_MainWindow):
         coeur = self.coeur.split('\n')
         for i, line in enumerate(coeur):
             coeur[i] += '\n'
-         # dans self.coeur il y a deux saut de line pour le formatage qui rentre en interférence
+         # dans self.coeur il y a deux saut de line pour le formatage qui rentre en interfÃ©rence
         del coeur[-1]
         del coeur[-1]
 
@@ -175,9 +176,10 @@ class Convertisseur(Ui_MainWindow):
             script.write(contenus)
             script.truncate()
         self.LblInfo.setText(
-            '{}.ui ajouter à {}.py'.format(self.py, self.scriptName))
+            '{}.ui ajouté Ã  {}.py'.format(self.py, self.scriptName))
 
     def ouvrirQt(self):
+        os.chdir(self.workingDir)
         with open('pathQt.txt', 'r') as f:
             path = f.read()
         os.system('{}'.format(path))
