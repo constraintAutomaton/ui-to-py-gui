@@ -77,7 +77,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ui to Py"))
         self.groupBox.setTitle(_translate("MainWindow", "Action"))
         self.BtnGo.setText(_translate("MainWindow", "Convert .ui to .py"))
-        self.BtnCode.setText(_translate("MainWindow", "Createa python script"))
+        self.BtnCode.setText(_translate("MainWindow", "Create a python script"))
         self.BtnQt.setText(_translate("MainWindow", "Open Qt designer"))
         self.BtnPathQt.setText(_translate("MainWindow", "Configure Qt designer location"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Option"))
