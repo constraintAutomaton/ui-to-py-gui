@@ -3,7 +3,6 @@ import sys
 import os
 from Convertisseur import Ui_MainWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtMultimedia import QSound
 
 
 class Convertisseur(Ui_MainWindow):
@@ -17,8 +16,6 @@ class Convertisseur(Ui_MainWindow):
         self.pathPy = ''
         self.scriptName = ''
 
-        self.audioLose = QSound(r"audio\GameOver.wav")
-        self.audioWin = QSound(r"Victory_ff7-_AudioTrimmer_com_.wav")
         self.workingDir = os.getcwd()
 
         self.BtnGo.clicked.connect(self.convertirPy)
@@ -83,7 +80,7 @@ class Convertisseur(Ui_MainWindow):
                 'Conversion de {}.ui en {}.py réussie '.format(self.ui, self.py))
 
     def appelConvertion(self):
-        # CrÃ©e une base pour la crÃ©ation de Gui Ã  partir du fichier ui initial
+        # CrÃ©e une base pour la crÃ©ation de Gui Ã  partir du fichier ui initial
         self.convertirPy()
 
         # permet d'obtenir le type de widget (mainWindow, Ui form )
@@ -176,7 +173,7 @@ class Convertisseur(Ui_MainWindow):
             script.write(contenus)
             script.truncate()
         self.LblInfo.setText(
-            '{}.ui ajouté Ã  {}.py'.format(self.py, self.scriptName))
+            '{}.ui ajouté Ã  {}.py'.format(self.py, self.scriptName))
 
     def ouvrirQt(self):
         os.chdir(self.workingDir)
