@@ -55,29 +55,16 @@ class Convertisseur(Ui_MainWindow):
 
                 if self.ui == '' or self.py == '' or self.pathUi == '':
                     raise ValueError("Vous devez remplir tous les champs")
-
-                    self.LblInfo.setText("Vous devez remplir tous les champs")
-
-                    if self.ChkSons.isChecked():
-                        self.audioLose.play()
+                
                 os.chdir(self.pathUi)
                 os.system('pyuic5 -x {}.ui -o {}.py '.format(self.ui, self.py))
 
             except:
-                print("Le fichier ou l'emplacement est introuvable")
-                self.LblInfo.setText(
-                    "Le fichier ou l'emplacement est introuvable")
-                if self.ChkSons.isChecked():
-                    self.audioLose.play()
                 break
             else:
                 boul = False
 
-        if boul == False and self.ChkSons.isChecked():
-            self.audioWin.play()
-        elif boul == False:
-            self.LblInfo.setText(
-                'Conversion de {}.ui en {}.py réussie '.format(self.ui, self.py))
+
 
     def appelConvertion(self):
         # CrÃ©e une base pour la crÃ©ation de Gui Ã  partir du fichier ui initial
@@ -127,9 +114,7 @@ class Convertisseur(Ui_MainWindow):
                 script.write(self.coeur)
                 script.write(self.presentation)
 
-                if self.ChkSons.isChecked():
-                    self.audioWin.play()
-            self.LblInfo.setText('Script {}.py créé'.format(self.scriptName))
+               
 
     def ajoutScript(self):
         # fichier qui permet d'ouvrir au dernier path utilise

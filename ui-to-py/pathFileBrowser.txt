@@ -1,1 +1,1 @@
-/home/bryan/Documents/ui-to-py-gui/ui-to-py/
+C:/Users/Utilisateur/OneDrive/Meuble Corporatif/logiciel gestion meuble corporatif/main/ui/
